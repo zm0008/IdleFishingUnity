@@ -11,6 +11,8 @@ public class FishStats : MonoBehaviour
     float exampleVar2 = 1.0f;
     private GameObject Hook;
     private FishInventory fishInventory;
+    private PlayerHook playerhook;
+
 
 
     // Start is called before the first frame update
@@ -20,6 +22,7 @@ public class FishStats : MonoBehaviour
         currentHealth = fishHealth;
         fishInventory = FindObjectOfType<FishInventory>();
         Debug.Log("FishInventory found: " + fishInventory);
+        playerhook = Hook.GetComponent<PlayerHook>();
     }
 
     // Update is called once per frame
@@ -33,13 +36,14 @@ public class FishStats : MonoBehaviour
             {
                 fishInventory.FishCaught(exampleVar1);
                 Debug.Log("called fish caught");
+                playerhook.RemainingCapacity -= 1;
                 Destroy(gameObject);
             }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerHook>() && currentHealth > 0)
+        if (collision.gameObject.GetComponent<PlayerHook>() && currentHealth > 0 && playerhook.RemainingCapacity > 0)
         {
             Hook = collision.gameObject;
             currentHealth -= hookDamage;

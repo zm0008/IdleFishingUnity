@@ -13,6 +13,10 @@ public class PlayerHook : MonoBehaviour
     private Rigidbody2D rb;
     private float vertical_thrust = 0.5f;
     private float horizontal_thrust = 0.7f;
+    private float MaximumCapacity = 3;
+
+    [HideInInspector]
+    public float RemainingCapacity;
 
     //private bool returning = false;
     public bool returnCheck1 = false;
@@ -37,6 +41,7 @@ public class PlayerHook : MonoBehaviour
     {
         transform.position = new Vector3(0.0f, 0.0f, 0.0f);
         RemainingLine = LineLength;
+        RemainingCapacity = MaximumCapacity;
     }
 
     // Update is called once per frame
@@ -74,6 +79,7 @@ public class PlayerHook : MonoBehaviour
                 returnCheck1 = false;
                 Debug.Log("Hook Returned");
                 RemainingLine = LineLength;
+                RemainingCapacity = MaximumCapacity;
             }
             if (transform.position.y >= -1.0f && transform.position.y <= 1.0f && transform.position.x >= -1.0f && transform.position.x <= 1.0f)
             {
